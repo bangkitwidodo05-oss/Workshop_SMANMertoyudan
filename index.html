@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Media Pembelajaran Interaktif - SMA N 1 Mertoyudan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #cbd5e1;
+            color: #0f172a;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.4s ease;
+            overflow: hidden;
+        }
+        .slide {
+            display: none;
+            height: calc(100vh - 82px);
+        }
+        .slide.active {
+            display: flex;
+        }
+
+        /* SAAT FULL SCREEN: Hilangkan footer bawah & maksimalkan layar proyektor 100% */
+        body.is-fullscreen #presentationFooter {
+            display: none !important;
+        }
+        body.is-fullscreen #presentationMain {
+            padding: 8px 12px !important;
+        }
+        body.is-fullscreen .slide {
+            height: calc(100vh - 18px) !important;
+        }
+
+        /* Animasi Masuk Halus */
+        .slide.active .anim-up {
+            animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .slide.active .anim-zoom {
+            animation: zoomIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .slide.active .delay-1 { animation-delay: 0.06s; }
+        .slide.active .delay-2 { animation-delay: 0.12s; }
+        .slide.active .delay-3 { animation-delay: 0.18s; }
+        .slide.active .delay-4 { animation-delay: 0.24s; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Animasi Melayang Ringan */
+        .float-slow { animation: floatSlow 4.5s ease-in-out infinite; }
+        .float-fast { animation: floatSlow 2.8s ease-in-out infinite; }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Animasi Sticky Note Live Polling */
+        .pop-in {
+            animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.88); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .card-lift {
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
+        .card-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 28px -6px rgba(15, 23, 42, 0.14);
+        }
+
+        ::-webkit-scrollbar { width: 7px; }
+        ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.05); }
+        ::-webkit-scrollbar-thumb { background: rgba(30, 58, 138, 0.35); border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <!-- =========================================================================
+         MODE 1: TAMPILAN PRESENTASI LAYAR UTAMA (15 SLIDE - OPTIMAL LAYAR LCD)
+         ========================================================================= -->
+    <div id="presentationWrapper" style="display: none;" class="flex-col h-screen overflow-hidden">
+        
+        <!-- Top Progress Bar -->
+        <div id="topProgressWrapper" class="w-full bg-slate-300 h-2 shrink-0 z-30">
+            <div id="progressBar" class="bg-gradient-to-r from-blue-900 via-blue-600 to-amber-500 h-2 transition-all duration-300" style="width: 6.66%;"></div>
+        </div>
+
+        <!-- MAIN SLIDE CONTAINER -->
+        <main id="presentationMain" class="flex-1 w-full max-w-[1440px] mx-auto px-3 md:px-5 py-2 flex items-center justify-center overflow-hidden relative z-10">
+
+            <!-- ================= SLIDE 1: COVER (BIRU NAVY, PUTIH & AKSEN EMAS) ================= -->
+            <section data-bg="#cbd5e1" class="slide active flex-col justify-between w-full h-full bg-gradient-to-br from-[#0B2447] via-[#19376D] to-[#1E40AF] text-white rounded-3xl p-7 md:p-11 shadow-2xl border-4 border-white relative overflow-hidden">
+                <div class="absolute -right-24 -top-24 w-96 h-96 bg-sky-400 rounded-full opacity-20 blur-3xl pointer-events-none"></div>
+                <div class="absolute left-1/3 -bottom-24 w-96 h-96 bg-amber-400 rounded-full opacity-15 blur-3xl pointer-events-none"></div>
+
+                <!-- Header Badges -->
+                <div class="flex flex-wrap justify-between items-center z-10 gap-3 anim-up">
+                    <span class="bg-amber-400 text-slate-950 font-extrabold px-5 py-2 rounded-full text-sm md:text-base tracking-wide uppercase shadow-md">
+                        <i class="fa-solid fa-sparkles mr-2"></i>Workshop Media Pembelajaran Interaktif
+                    </span>
+                    <span class="bg-white text-[#0B2447] font-extrabold px-5 py-2 rounded-full text-sm md:text-base shadow-md">
+                        <i class="fa-solid fa-school mr-2 text-blue-700"></i>SMA Negeri 1 Mertoyudan
+                    </span>
+                </div>
+
+                <!-- Konten Tengah + Ilustrasi Karakter Guru & Papan Putih -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-auto z-10">
+                    <div class="lg:col-span-7 space-y-6 anim-up delay-1">
+                        <h1 class="text-4xl md:text-5xl xl:text-[3.6rem] font-extrabold leading-[1.15] tracking-tight text-white">
+                            Pemanfaatan AI, Aplikasi & Platform <span class="text-amber-300">Pembelajaran Interaktif</span>
+                        </h1>
+                        <p class="text-lg md:text-2xl text-white font-semibold leading-relaxed border-l-8 border-amber-400 pl-5 bg-white/15 backdrop-blur-sm py-4 pr-5 rounded-r-2xl">
+                            "Mewujudkan Pembelajaran yang Lebih <span class="text-amber-300 font-extrabold">Menarik</span>, <span class="text-amber-300 font-extrabold">Bermakna</span>, <span class="text-amber-300 font-extrabold">Berdampak</span>, dan <span class="text-amber-300 font-extrabold">Menggembirakan</span>"
+                        </p>
+                    </div>
+
+                    <!-- Karakter Ilustrasi Guru Modern -->
+                    <div class="lg:col-span-5 hidden sm:flex justify-center items-center anim-zoom delay-2">
+                        <div class="relative float-slow">
+                            <svg class="w-72 h-72 md:w-88 md:h-88 drop-shadow-2xl" viewBox="0 0 340 340" fill="none">
+                                <circle cx="170" cy="170" r="148" fill="#FFFFFF" fill-opacity="0.14" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="2.5" stroke-dasharray="8 8"/>
+                                <rect x="48" y="52" width="244" height="148" rx="20" fill="#FFFFFF" stroke="#93C5FD" stroke-width="4"/>
+                                <rect x="66" y="70" width="124" height="16" rx="8" fill="#1E3A8A"/>
+                                <rect x="66" y="96" width="92" height="10" rx="5" fill="#64748B"/>
+                                <rect x="66" y="114" width="108" height="10" rx="5" fill="#94A3B8"/>
+                                <rect x="206" y="70" width="66" height="62" rx="14" fill="#FBBF24"/>
+                                <path d="M225 101L235 111L253 91" stroke="#0B2447" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <rect x="66" y="144" width="206" height="40" rx="12" fill="#EFF6FF"/>
+                                <circle cx="92" cy="164" r="11" fill="#10B981"/>
+                                <rect x="114" y="159" width="115" height="11" rx="5.5" fill="#3B82F6"/>
+                                <circle cx="170" cy="228" r="27" fill="#FDBA74"/>
+                                <path d="M143 223C143 203 197 203 197 223C197 213 183 209 170 209C157 209 143 213 143 223Z" fill="#0B2447"/>
+                                <rect x="152" y="221" width="15" height="11" rx="3" stroke="#0B2447" stroke-width="2.5" fill="#FFFFFF"/>
+                                <rect x="173" y="221" width="15" height="11" rx="3" stroke="#0B2447" stroke-width="2.5" fill="#FFFFFF"/>
+                                <line x1="167" y1="226" x2="173" y2="226" stroke="#0B2447" stroke-width="2.5"/>
+                                <path d="M163 240C167 243 173 243 177 240" stroke="#0B2447" stroke-width="2.5" stroke-linecap="round"/>
+                                <path d="M114 308C114 274 137 259 170 259C203 259 226 274 226 308H114Z" fill="#FFFFFF"/>
+                                <path d="M158 259L170 286L182 259" fill="#1E3A8A"/>
+                                <path d="M167 266L170 286L173 266" fill="#F59E0B"/>
+                                <g class="float-fast">
+                                    <circle cx="42" cy="128" r="24" fill="#FBBF24" stroke="#FFFFFF" stroke-width="3"/>
+                                    <path d="M42 116L45 125L54 128L45 131L42 140L39 131L30 128L39 125L42 116Z" fill="#0B2447"/>
+                                </g>
+                                <g class="float-fast">
+                                    <circle cx="298" cy="178" r="24" fill="#10B981" stroke="#FFFFFF" stroke-width="3"/>
+                                    <text x="290" y="186" fill="#FFFFFF" font-weight="900" font-size="22">π</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Narasumber -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-t-2 border-white/25 pt-4 z-10 gap-4 anim-up delay-3">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-2xl bg-white text-[#0B2447] flex items-center justify-center text-2xl font-black shadow-lg shrink-0">
+                            BJW
+                        </div>
+                        <div>
+                            <p class="text-xs md:text-sm text-amber-300 uppercase tracking-wider font-extrabold">Presentator</p>
+                            <h3 class="text-2xl md:text-3xl font-extrabold text-white">Bangkit Joko Widodo, S.Si., M.Pd.</h3>
+                            <p class="text-blue-100 text-sm md:text-base font-medium">Guru Matematika — SMA Taruna Muhammadiyah Gunungpring, Kab. Magelang</p>
+                        </div>
+                    </div>
+                    <div class="text-right hidden lg:block">
+                        <span class="bg-white/15 border border-white/30 px-4 py-2 rounded-xl text-sm text-white font-bold">
+                            Navigasi: <kbd class="bg-white text-[#0B2447] px-2 py-0.5 rounded font-extrabold">←</kbd> <kbd class="bg-white text-[#0B2447] px-2 py-0.5 rounded font-extrabold">→</kbd> &bull; Full Screen: <kbd class="bg-white text-[#0B2447] px-2 py-0.5 rounded font-extrabold">F</kbd>
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 2: PENGGUNAAN AI DALAM PEMBELAJARAN ================= -->
+            <section data-bg="#dbeafe" class="slide flex-col w-full h-full justify-between bg-white rounded-3xl p-6 md:p-9 border-4 border-[#1E3A8A] shadow-2xl overflow-y-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-3 bg-[#0B2447] text-white p-4 md:p-5 rounded-2xl shadow-md anim-up">
+                    <div>
+                        <span class="bg-amber-400 text-slate-950 font-extrabold px-3.5 py-1 rounded-full uppercase text-xs md:text-sm tracking-wider inline-flex items-center gap-1.5">
+                            <i class="fa-solid fa-microchip"></i> Akselerasi Guru Era Digital
+                        </span>
+                        <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white mt-1.5">Pemanfaatan Kecerdasan Artifisial (AI) dalam Pembelajaran</h2>
+                    </div>
+                    <div class="hidden xl:flex items-center gap-3 bg-white/15 px-4 py-2.5 rounded-xl border border-white/25 shrink-0">
+                        <div class="w-10 h-10 rounded-xl bg-amber-400 text-[#0B2447] flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div class="text-sm">
+                            <span class="font-extrabold text-white block">AI sebagai Co-Pilot Guru</span>
+                            <span class="text-blue-200 text-xs">Cepat, kreatif, & terstruktur</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 my-auto anim-up delay-1">
+                    <div class="bg-slate-50 rounded-3xl p-5 md:p-6 border-2 border-emerald-600 shadow-md flex flex-col justify-between card-lift">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-2xl shadow-sm">
+                                    <i class="fa-solid fa-comment-dots"></i>
+                                </div>
+                                <span class="bg-emerald-100 text-emerald-900 border border-emerald-300 text-xs font-extrabold px-3 py-1 rounded-full uppercase">Perencanaan & Soal</span>
+                            </div>
+                            <h3 class="text-2xl font-extrabold text-[#0B2447] mb-2">ChatGPT</h3>
+                            <p class="text-sm md:text-base text-slate-700 font-medium leading-relaxed mb-3">
+                                Asisten penyusun Modul Ajar, RPP, kisi-kisi soal HOTS, ide proyek P5, dan draf materi ajar interaktif secara instan.
+                            </p>
+                        </div>
+                        <div class="bg-emerald-100/80 border border-emerald-300 rounded-2xl p-3 space-y-1 text-sm font-bold text-slate-900">
+                            <p><i class="fa-solid fa-circle-check text-emerald-700 mr-1.5"></i>Menyusun Draf Modul Ajar</p>
+                            <p><i class="fa-solid fa-circle-check text-emerald-700 mr-1.5"></i>Membuat Rubrik & Bank Soal</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-3xl p-5 md:p-6 border-2 border-[#1E3A8A] shadow-md flex flex-col justify-between card-lift">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <div class="w-12 h-12 rounded-2xl bg-[#1E3A8A] text-white flex items-center justify-center text-2xl shadow-sm">
+                                    <i class="fa-solid fa-sparkles"></i>
+                                </div>
+                                <span class="bg-blue-100 text-[#0B2447] border border-blue-300 text-xs font-extrabold px-3 py-1 rounded-full uppercase">Multimodal & Web</span>
+                            </div>
+                            <h3 class="text-2xl font-extrabold text-[#0B2447] mb-2">Google Gemini</h3>
+                            <p class="text-sm md:text-base text-slate-700 font-medium leading-relaxed mb-3">
+                                Terintegrasi Google Docs/Drive, analisis foto tugas siswa, pembuatan media web HTML interaktif, serta riset real-time.
+                            </p>
+                        </div>
+                        <div class="bg-blue-100/80 border border-blue-300 rounded-2xl p-3 space-y-1 text-sm font-bold text-slate-900">
+                            <p><i class="fa-solid fa-circle-check text-blue-800 mr-1.5"></i>Integrasi Google Workspace</p>
+                            <p><i class="fa-solid fa-circle-check text-blue-800 mr-1.5"></i>Analisis Foto / Media HTML</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-3xl p-5 md:p-6 border-2 border-amber-500 shadow-md flex flex-col justify-between card-lift">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <div class="w-12 h-12 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center text-2xl shadow-sm">
+                                    <i class="fa-solid fa-book-open"></i>
+                                </div>
+                                <span class="bg-amber-100 text-amber-950 border border-amber-300 text-xs font-extrabold px-3 py-1 rounded-full uppercase">Riset Dokumen</span>
+                            </div>
+                            <h3 class="text-2xl font-extrabold text-[#0B2447] mb-2">NotebookLM</h3>
+                            <p class="text-sm md:text-base text-slate-700 font-medium leading-relaxed mb-3">
+                                AI riset khusus sumber guru. Mengolah PDF buku paket & jurnal menjadi ringkasan, FAQ, audio diskusi, dan panduan belajar.
+                            </p>
+                        </div>
+                        <div class="bg-amber-100/80 border border-amber-300 rounded-2xl p-3 space-y-1 text-sm font-bold text-slate-900">
+                            <p><i class="fa-solid fa-circle-check text-amber-700 mr-1.5"></i>Fokus Sumber PDF/Buku Teks</p>
+                            <p><i class="fa-solid fa-circle-check text-amber-700 mr-1.5"></i>Akurat & Bebas Halusinasi</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 anim-up delay-2">
+                    <div class="bg-slate-50 rounded-3xl p-4 md:p-5 border-2 border-orange-500 shadow-md flex items-center gap-4 card-lift">
+                        <div class="w-14 h-14 rounded-2xl bg-orange-600 text-white flex items-center justify-center text-2xl shrink-0 shadow-sm">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-1">
+                                <h3 class="text-xl font-extrabold text-[#0B2447]">Claude</h3>
+                                <span class="bg-orange-100 text-orange-900 border border-orange-300 text-xs font-extrabold px-3 py-0.5 rounded-full uppercase">Deep Reasoning</span>
+                            </div>
+                            <p class="text-sm md:text-base text-slate-700 font-medium leading-snug">
+                                Unggul dalam logika penulisan mendalam, simulasi interaktif (<i>Artifacts</i>), dan penataan alur materi terstruktur.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-3xl p-4 md:p-5 border-2 border-purple-600 shadow-md flex items-center gap-4 card-lift">
+                        <div class="w-14 h-14 rounded-2xl bg-purple-600 text-white flex items-center justify-center text-2xl shrink-0 shadow-sm">
+                            <i class="fa-solid fa-palette"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-1">
+                                <h3 class="text-xl font-extrabold text-[#0B2447]">Canva AI</h3>
+                                <span class="bg-purple-100 text-purple-900 border border-purple-300 text-xs font-extrabold px-3 py-0.5 rounded-full uppercase">Visual & Design</span>
+                            </div>
+                            <p class="text-sm md:text-base text-slate-700 font-medium leading-snug">
+                                Fitur <i>Magic Studio</i> untuk membuat slide presentasi otomatis, aset peta latar gim LUMI (16:9), dan infografis instan.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 3: MIND MAP PROBLEMATIKA -> GEN Z/ALPHA ================= -->
+            <section data-bg="#cbd5e1" class="slide flex-col w-full h-full justify-between bg-white rounded-3xl p-6 md:p-9 border-4 border-[#1E3A8A] shadow-2xl overflow-y-auto relative">
+                <div class="text-center anim-up">
+                    <span class="bg-[#0B2447] text-amber-300 font-extrabold px-4 py-1.5 rounded-full uppercase text-xs md:text-sm tracking-wider">
+                        <i class="fa-solid fa-diagram-project mr-1.5"></i>Mind Map Latar Belakang & Urgensi
+                    </span>
+                    <h2 class="text-2xl md:text-4xl font-extrabold text-[#0B2447] mt-2">Dari Tantangan Kelas Menuju Pembelajaran Interaktif</h2>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center my-auto relative py-2">
+                    <div class="lg:col-span-4 space-y-5 z-10 anim-up delay-1">
+                        <div class="bg-rose-50 rounded-3xl p-5 border-2 border-rose-500 shadow-md card-lift relative">
+                            <div class="flex items-center gap-3.5 mb-2.5">
+                                <div class="w-12 h-12 rounded-2xl bg-rose-600 text-white flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-extrabold uppercase tracking-wider text-rose-700 block">1. Akar Permasalahan</span>
+                                    <h3 class="text-lg md:text-xl font-extrabold text-[#0B2447] leading-tight">Bosan & Kecanduan Gadget</h3>
+                                </div>
+                            </div>
+                            <ul class="text-sm md:text-base text-slate-800 font-medium space-y-2 pl-1">
+                                <li><i class="fa-solid fa-circle-dot text-rose-600 mr-2"></i>Ceramah satu arah membuat murid cepat jenuh & pasif.</li>
+                                <li><i class="fa-solid fa-circle-dot text-rose-600 mr-2"></i>Murid sulit lepas dari layar HP (<i>ketergantungan gadget</i>).</li>
+                            </ul>
+                            <div class="hidden lg:flex absolute -right-5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-rose-600 text-white items-center justify-center shadow-md z-20">
+                                <i class="fa-solid fa-arrow-right text-sm"></i>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 rounded-3xl p-5 border-2 border-[#1E3A8A] shadow-md card-lift relative">
+                            <div class="flex items-center gap-3.5 mb-2.5">
+                                <div class="w-12 h-12 rounded-2xl bg-[#1E3A8A] text-white flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-solid fa-mobile-screen-button"></i>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-extrabold uppercase tracking-wider text-blue-800 block">2. Realitas Murid Kini</span>
+                                    <h3 class="text-lg md:text-xl font-extrabold text-[#0B2447] leading-tight">Generasi Z & Gen Alpha</h3>
+                                </div>
+                            </div>
+                            <ul class="text-sm md:text-base text-slate-800 font-medium space-y-2 pl-1">
+                                <li><i class="fa-solid fa-circle-dot text-blue-700 mr-2"></i><i>Digital Natives:</i> Terbiasa visual cepat, gamifikasi, & klik interaktif.</li>
+                                <li><i class="fa-solid fa-circle-dot text-blue-700 mr-2"></i>Rentang perhatian pendek jika tanpa tantangan nyata.</li>
+                            </ul>
+                            <div class="hidden lg:flex absolute -right-5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-[#1E3A8A] text-white items-center justify-center shadow-md z-20">
+                                <i class="fa-solid fa-arrow-right text-sm"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-4 flex flex-col items-center justify-center z-10 anim-zoom delay-2 my-1">
+                        <div class="w-64 h-64 md:w-72 md:h-72 rounded-full bg-gradient-to-tr from-[#0B2447] via-[#1E3A8A] to-amber-400 p-2.5 shadow-2xl float-slow">
+                            <div class="w-full h-full rounded-full bg-white text-[#0B2447] flex flex-col items-center justify-center p-6 text-center border-4 border-blue-100">
+                                <div class="w-14 h-14 rounded-2xl bg-[#0B2447] text-amber-300 flex items-center justify-center text-2xl mb-2 shadow">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                </div>
+                                <span class="text-xs font-extrabold uppercase tracking-widest text-blue-700">Titik Temu Solusi</span>
+                                <h3 class="text-xl md:text-2xl font-black leading-snug mt-1 text-[#0B2447]">MEDIA PEMBELAJARAN INTERAKTIF</h3>
+                                <p class="text-xs md:text-sm text-slate-700 font-semibold mt-2 leading-snug">
+                                    Mengubah distraksi <i>gadget</i> menjadi <b>pewarna kelas</b> yang edukatif!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-4 space-y-5 z-10 anim-up delay-3">
+                        <div class="bg-emerald-50 rounded-3xl p-5 border-2 border-emerald-600 shadow-md card-lift relative">
+                            <div class="hidden lg:flex absolute -left-5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-emerald-600 text-white items-center justify-center shadow-md z-20">
+                                <i class="fa-solid fa-arrow-right text-sm"></i>
+                            </div>
+                            <div class="flex items-center gap-3.5 mb-2.5">
+                                <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-solid fa-face-laugh-beam"></i>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-700 block">3. Dampak di Kelas</span>
+                                    <h3 class="text-lg md:text-xl font-extrabold text-[#0B2447] leading-tight">Bermakna & Menggembirakan</h3>
+                                </div>
+                            </div>
+                            <ul class="text-sm md:text-base text-slate-800 font-medium space-y-2 pl-1">
+                                <li><i class="fa-solid fa-check text-emerald-600 mr-2"></i>Murid aktif mengeksplorasi konsep & mendapat umpan balik instan.</li>
+                                <li><i class="fa-solid fa-check text-emerald-600 mr-2"></i>Belajar terasa seperti bermain petualangan yang menantang.</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-amber-50 rounded-3xl p-5 border-2 border-amber-500 shadow-md card-lift relative">
+                            <div class="hidden lg:flex absolute -left-5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-amber-500 text-slate-950 items-center justify-center shadow-md z-20">
+                                <i class="fa-solid fa-arrow-right text-sm"></i>
+                            </div>
+                            <div class="flex items-center gap-3.5 mb-2.5">
+                                <div class="w-12 h-12 rounded-2xl bg-amber-400 text-[#0B2447] flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-solid fa-compass"></i>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-extrabold uppercase tracking-wider text-amber-800 block">4. Kompas Guru Digital</span>
+                                    <h3 class="text-lg md:text-xl font-extrabold text-[#0B2447] leading-tight">Bijak Sesuai Keperluan</h3>
+                                </div>
+                            </div>
+                            <ul class="text-sm md:text-base text-slate-800 font-medium space-y-2 pl-1">
+                                <li><i class="fa-solid fa-shield-halved text-[#1E3A8A] mr-2"></i><b>Tidak Boleh Gaptek:</b> Guru adaptif mengikuti perkembangan zaman.</li>
+                                <li><i class="fa-solid fa-anchor text-amber-700 mr-2"></i><b>Tidak Boleh Tergantung:</b> Teknologi alat bantu, pedagogi utama.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 4: LIVE STICKY NOTES BOARD ================= -->
+            <section data-bg="#cbd5e1" class="slide flex-col w-full h-full justify-center">
+                <div class="flex flex-col md:flex-row gap-5 items-stretch h-full max-h-[650px]">
+                    <div class="w-full md:w-5/12 bg-gradient-to-b from-[#0B2447] via-[#19376D] to-[#1E3A8A] text-white rounded-3xl p-6 flex flex-col items-center text-center shadow-xl border-4 border-white justify-between anim-up delay-1">
+                        <div>
+                            <span class="bg-amber-400 text-slate-950 text-xs md:text-sm font-extrabold px-4 py-1 rounded-full uppercase">Sesi Interaktif Peserta</span>
+                            <h2 class="text-2xl md:text-3xl font-extrabold mt-2">Scan & Kirim Aspirasi!</h2>
+                            <p class="text-blue-100 text-sm mt-1">Pindai QR Code di bawah lewat kamera HP Anda:</p>
+                        </div>
+                        
+                        <div class="bg-white p-3.5 rounded-2xl shadow-lg my-1">
+                            <img id="qrImage" src="" alt="QR Code Peserta" class="w-44 h-44">
+                        </div>
+
+                        <div class="w-full text-left bg-white/15 backdrop-blur-md p-4 rounded-2xl border border-white/25 space-y-2">
+                            <p class="text-xs font-extrabold text-amber-300 uppercase tracking-wider">2 Pertanyaan Pemantik:</p>
+                            <p class="text-sm font-semibold text-white">1. Media pembelajaran interaktif apa yang paling sering Anda gunakan?</p>
+                            <p class="text-sm font-semibold text-white">2. Apa kendala terbesar saat membuat/menggunakannya?</p>
+                        </div>
+
+                        <a href="?mode=peserta" target="_blank" class="text-sm text-amber-300 font-extrabold hover:underline">
+                            <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Buka Formulir Peserta di Tab Baru
+                        </a>
+                    </div>
+
+                    <div class="w-full md:w-7/12 bg-white border-4 border-[#1E3A8A] rounded-3xl p-6 h-full flex flex-col justify-between overflow-hidden shadow-xl anim-up delay-2">
+                        <div class="flex-1 flex flex-col overflow-hidden">
+                            <div class="flex justify-between items-center border-b-2 border-slate-200 pb-3 mb-3">
+                                <div>
+                                    <h3 class="text-xl md:text-2xl font-extrabold text-[#0B2447]">
+                                        <i class="fa-solid fa-note-sticky text-amber-500 mr-2"></i>Papan Aspirasi Guru SMAN 1 Mertoyudan
+                                    </h3>
+                                    <p class="text-sm text-slate-600 font-medium">Catatan dari HP peserta langsung tertempel di sini</p>
+                                </div>
+                                <div class="flex items-center gap-2 shrink-0">
+                                    <span id="responseCount" class="bg-[#0B2447] text-amber-300 font-extrabold px-3.5 py-1.5 rounded-full text-sm">0 Jawaban</span>
+                                    <span class="bg-emerald-600 text-white font-bold px-3.5 py-1.5 rounded-full text-sm animate-pulse">● Live</span>
+                                </div>
+                            </div>
+
+                            <div id="liveBoardContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 overflow-y-auto pr-1 flex-1 content-start">
+                                <div id="emptyState" class="col-span-full text-center py-16 text-slate-600">
+                                    <i class="fa-solid fa-mobile-screen-button text-5xl mb-3 animate-bounce text-[#1E3A8A]"></i>
+                                    <p class="font-bold text-base md:text-lg">Menunggu peserta memindai QR Code dan mengirim jawaban...</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t-2 border-slate-200 pt-3 mt-2 flex justify-between items-center text-sm text-slate-700 font-semibold">
+                            <span id="syncStatus"><i class="fa-solid fa-cloud-arrow-down text-[#1E3A8A] mr-1"></i> Sinkronisasi otomatis setiap 3 detik</span>
+                            <button type="button" id="manualRefreshBtn" class="text-[#1E3A8A] font-extrabold hover:underline cursor-pointer">
+                                <i class="fa-solid fa-rotate mr-1"></i> Segarkan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 5: MIND MAP RADIAL RUANG MURID ================= -->
+            <section data-bg="#cbd5e1" class="slide flex-col w-full h-full justify-center bg-white rounded-3xl p-6 md:p-9 border-4 border-[#1E3A8A] shadow-2xl overflow-y-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-5 gap-3 bg-[#0B2447] text-white p-4 md:p-5 rounded-2xl anim-up">
+                    <div>
+                        <span class="bg-teal-400 text-slate-950 font-extrabold px-3.5 py-1 rounded-full text-xs md:text-sm uppercase">Peta Konsep Direktorat SMA</span>
+                        <h2 class="text-2xl md:text-4xl font-extrabold mt-1">Ekosistem Interaktif <span class="text-amber-300">Ruang Murid</span></h2>
+                    </div>
+                    <a href="https://rumah.pendidikan.go.id" target="_blank" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold px-5 py-3 rounded-xl shadow-md flex items-center gap-2 transition text-sm md:text-base">
+                        <i class="fa-solid fa-up-right-from-square"></i> Kunjungi Portal Ruang Murid
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center my-auto">
+                    <div class="lg:col-span-4 bg-blue-50 border-2 border-[#1E3A8A] rounded-3xl p-6 shadow-md card-lift anim-up delay-1 relative">
+                        <div class="flex items-center gap-3.5 mb-3">
+                            <div class="w-12 h-12 rounded-2xl bg-[#1E3A8A] text-white flex items-center justify-center text-2xl shrink-0">
+                                <i class="fa-solid fa-photo-film"></i>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-extrabold text-[#0B2447]">1. Media Interaktif</h3>
+                        </div>
+                        <p class="text-sm md:text-base text-slate-800 font-medium leading-relaxed mb-4">
+                            Bahan ajar multimedia berbasis HTML5/H5P berisi teks, audio, video, dan simulasi klik-dan-pelajari.
+                        </p>
+                        <span class="inline-block bg-white border border-blue-300 text-[#0B2447] text-xs md:text-sm font-extrabold px-3.5 py-1.5 rounded-xl">
+                            Fokus: Eksplorasi & Literasi Visual
+                        </span>
+                    </div>
+
+                    <div class="lg:col-span-4 flex flex-col items-center justify-center text-center anim-zoom delay-2 my-2">
+                        <div class="w-48 h-48 md:w-52 md:h-52 rounded-full bg-gradient-to-tr from-[#0B2447] via-[#1E3A8A] to-teal-500 p-2 shadow-xl float-slow">
+                            <div class="w-full h-full rounded-full bg-white flex flex-col items-center justify-center p-4">
+                                <i class="fa-solid fa-network-wired text-3xl text-[#1E3A8A] mb-1.5"></i>
+                                <span class="text-xs font-extrabold uppercase tracking-widest text-amber-600">Rumah Pendidikan</span>
+                                <h3 class="text-2xl font-black text-[#0B2447] leading-tight mt-0.5">RUANG MURID</h3>
+                                <span class="text-xs text-teal-700 font-bold mt-1">3 Pilar Konten Digital</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 w-full bg-emerald-50 border-2 border-emerald-600 rounded-3xl p-5 shadow-md text-left card-lift">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-solid fa-flask-vial"></i>
+                                </div>
+                                <h3 class="text-lg md:text-xl font-extrabold text-[#0B2447]">3. Lab Maya</h3>
+                            </div>
+                            <p class="text-sm md:text-base text-slate-800 font-medium leading-relaxed">
+                                Simulasi praktikum laboratorium virtual interaktif untuk pembuktian teori MIPA secara aman.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-4 bg-amber-50 border-2 border-amber-500 rounded-3xl p-6 shadow-md card-lift anim-up delay-3">
+                        <div class="flex items-center gap-3.5 mb-3">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-400 text-[#0B2447] flex items-center justify-center text-2xl shrink-0">
+                                <i class="fa-solid fa-gamepad"></i>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-extrabold text-[#0B2447]">2. Gim Edukasi</h3>
+                        </div>
+                        <p class="text-sm md:text-base text-slate-800 font-medium leading-relaxed mb-4">
+                            Permainan edukatif berjenjang (<i>Game-Based Learning</i>) dengan misi, poin, tantangan, dan umpan balik langsung.
+                        </p>
+                        <span class="inline-block bg-white border border-amber-300 text-amber-950 text-xs md:text-sm font-extrabold px-3.5 py-1.5 rounded-xl">
+                            Fokus: Penguatan Konsep & Gamifikasi
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 6: BENTO GRID EKOSISTEM & DOWNLOAD LUMI ================= -->
+            <section data-bg="#cbd5e1" class="slide flex-col w-full h-full justify-center bg-white rounded-3xl p-6 md:p-9 border-4 border-[#1E3A8A] shadow-2xl overflow-y-auto">
+                <div class="text-center mb-5 anim-up">
+                    <span class="bg-[#0B2447] text-amber-300 font-extrabold px-4 py-1.5 rounded-full uppercase text-xs md:text-sm tracking-wider">Bento Grid Aplikasi Tanpa Coding</span>
+                    <h2 class="text-2xl md:text-4xl font-extrabold text-[#0B2447] mt-2">Platform Pembuat Gim Edukasi & Bahan Praktik</h2>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5 anim-up delay-1">
+                    <div class="bg-purple-50 border-2 border-purple-500 rounded-2xl p-4 shadow-sm card-lift">
+                        <span class="font-extrabold text-purple-900 text-lg md:text-xl block"><i class="fa-solid fa-dharmachakra mr-1.5 text-purple-600"></i>Wordwall</span>
+                        <span class="text-xs md:text-sm text-slate-700 font-semibold">Roda Acak, Labirin, Pencocokan</span>
+                    </div>
+                    <div class="bg-pink-50 border-2 border-pink-500 rounded-2xl p-4 shadow-sm card-lift">
+                        <span class="font-extrabold text-pink-900 text-lg md:text-xl block"><i class="fa-solid fa-bolt mr-1.5 text-pink-600"></i>Quizizz</span>
+                        <span class="text-xs md:text-sm text-slate-700 font-semibold">Kuis Gamifikasi & Paper Mode</span>
+                    </div>
+                    <div class="bg-sky-50 border-2 border-sky-600 rounded-2xl p-4 shadow-sm card-lift">
+                        <span class="font-extrabold text-sky-950 text-lg md:text-xl block"><i class="fa-solid fa-puzzle-piece mr-1.5 text-sky-600"></i>Educaplay</span>
+                        <span class="text-xs md:text-sm text-slate-700 font-semibold">Teka-Teki Silang & Froggy Jumps</span>
+                    </div>
+                    <div class="bg-emerald-50 border-2 border-emerald-600 rounded-2xl p-4 shadow-sm card-lift">
+                        <span class="font-extrabold text-emerald-950 text-lg md:text-xl block"><i class="fa-solid fa-wand-magic-sparkles mr-1.5 text-emerald-600"></i>Genially</span>
+                        <span class="text-xs md:text-sm text-slate-700 font-semibold">Escape Room & Infografis Hidup</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+                    <div class="lg:col-span-7 bg-[#0B2447] text-white rounded-3xl p-6 shadow-xl flex flex-col sm:flex-row items-center gap-5 border-2 border-blue-800 anim-up delay-2">
+                        <div class="flex-1 space-y-3">
+                            <span class="bg-cyan-400 text-slate-950 px-3.5 py-1 rounded-full text-xs md:text-sm font-extrabold uppercase">Fokus Praktik 1: Offline HTML5</span>
+                            <h3 class="text-2xl md:text-3xl font-extrabold text-white">LUMI Education (H5P)</h3>
+                            <p class="text-blue-100 text-sm md:text-base leading-relaxed">
+                                Aplikasi desktop gratis untuk merancang <b>Gim Edukasi Peta Linier (Game Map)</b> tanpa coding dan diekspor ke <b>HTML5</b> mandiri. Unduh paket praktik di sini:
+                            </p>
+                            <a href="https://drive.google.com/drive/folders/1NtRjz46OT1ELZDtmqRcqZHsZMQP76OwT?usp=sharing" target="_blank" class="inline-flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold py-3.5 px-5 rounded-xl shadow-md transition text-sm md:text-base w-full sm:w-auto">
+                                <i class="fa-brands fa-google-drive text-lg"></i> Unduh Materi & Aplikasi LUMI
+                            </a>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl text-center shrink-0 shadow-md">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F1NtRjz46OT1ELZDtmqRcqZHsZMQP76OwT%3Fusp%3Dsharing" alt="QR Materi Lumi" class="w-32 h-32 mx-auto">
+                            <span class="text-xs font-extrabold text-[#0B2447] block mt-1.5">SCAN MATERI DRIVE</span>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 bg-gradient-to-br from-indigo-700 to-purple-700 text-white rounded-3xl p-6 shadow-xl flex flex-col justify-between border-2 border-indigo-400 anim-up delay-3">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="bg-amber-400 text-slate-950 px-3.5 py-1 rounded-full text-xs md:text-sm font-extrabold uppercase">Fokus Praktik 2: Live</span>
+                                <i class="fa-solid fa-rocket text-3xl text-amber-300 float-fast"></i>
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-extrabold text-white mb-2">Platform Blastroom</h3>
+                            <p class="text-indigo-50 text-sm md:text-base leading-relaxed">
+                                Gim kuis interaktif berbasis web dengan kompetisi <i>real-time</i>. Guru mengelola soal lewat dashboard dan siswa bergabung menggunakan PIN/QR Code.
+                            </p>
+                        </div>
+                        <div class="mt-4 bg-white/20 border border-white/30 py-3 px-4 rounded-xl text-center font-extrabold text-amber-300 text-sm md:text-base">
+                            <i class="fa-solid fa-gamepad mr-1.5"></i> Praktik Langsung di Slide 14
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 7: LANGKAH LUMI 1 - INSTALASI ================= -->
+            <section data-bg="#cbd5e1" class="slide flex-col w-full h-full justify-center bg-white rounded-3xl p-6 md:p-9 border-4 border-[#1E3A8A] shadow-2xl overflow-y-auto">
+                <div class="flex flex-wrap items-center justify-between mb-6 bg-[#0B2447] text-white p-4 md:p-5 rounded-2xl gap-3 anim-up">
+                    <div>
+                        <span class="bg-cyan-400 text-slate-950 font-extrabold px-3.5 py-1 rounded-full text-xs md:text-sm uppercase">Infografis Tahap 1 — Persiapan Mesin LUMI</span>
+                        <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold mt-1.5">Alur Unduh, Instalasi & Aktivasi Plugin Game Map</h2>
+                    </div>
+                    <a href="https://drive.google.com/drive/folders/1NtRjz46OT1ELZDtmqRcqZHsZMQP76OwT?usp=sharing" target="_blank" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold px-5 py-3 rounded-xl text-sm md:text-base flex items-center gap-2 shadow-md">
+                        <i class="fa-brands fa-google-drive"></i> Buka Folder Drive
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative my-auto">
+                    <div class="bg-blue-50 border-2 border-[#1E3A8A] rounded-3xl p-6 shadow-md relative card-lift anim-up delay-1">
+                        <div class="w-14 h-14 rounded-2xl bg-[#0B2447] text-white font-black text-2xl flex items-center justify-center mb-4 shadow-sm">01</div>
+                        <h3 class="text-xl md:text-2xl font-extrabold text-[#0B2447] mb-3">Unduh 3 Paket File</h3>
+                        <p class="text-slate-800 text-base md:text-lg font-medium leading-relaxed">
+                            Dari Google Drive materi, unduh:
+                            <br>• <code class="bg-white text-[#0B2447] border border-blue-300 px-2 py-0.5 rounded font-bold text-sm md:text-base">Lumi-Setup-0.9.1.exe</code>
+                            <br>• <code class="bg-white text-[#0B2447] border border-blue-300 px-2 py-0.5 rounded font-bold text-sm md:text-base">Plugin Game Map.h5p</code>
+                            <br>• <i>Template Peta Canva & Aset</i>
+                        </p>
+                    </div>
+
+                    <div class="bg-amber-50 border-2 border-amber-500 rounded-3xl p-6 shadow-md relative card-lift anim-up delay-2">
+                        <div class="w-14 h-14 rounded-2xl bg-amber-400 text-[#0B2447] font-black text-2xl flex items-center justify-center mb-4 shadow-sm">02</div>
+                        <h3 class="text-xl md:text-2xl font-extrabold text-[#0B2447] mb-3">Instalasi di Laptop</h3>
+                        <p class="text-slate-800 text-base md:text-lg font-medium leading-relaxed">
+                            Jalankan <code class="bg-white text-amber-950 border border-amber-300 px-2 py-0.5 rounded font-bold text-sm md:text-base">Lumi-Setup-0.9.1.exe</code>. Pada layar pengaturan awal:
+                            <br>• Centang semua <b>KECUALI "Automatic Updates"</b>
+                            <br>• Klik <b>Accept Selected</b>.
+                        </p>
+                    </div>
+
+                    <div class="bg-emerald-50 border-2 border-emerald-600 rounded-3xl p-6 shadow-md relative card-lift anim-up delay-3">
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-600 text-white font-black text-2xl flex items-center justify-center mb-4 shadow-sm">03</div>
+                        <h3 class="text-xl md:text-2xl font-extrabold text-[#0B2447] mb-3">Pasang Plugin Peta</h3>
+                        <p class="text-slate-800 text-base md:text-lg font-medium leading-relaxed">
+                            Buka Lumi → pilih <b>H5P Editor</b> → klik <b>Open Existing H5P</b> → buka <code class="bg-white text-emerald-950 border border-emerald-300 px-2 py-0.5 rounded font-bold text-sm md:text-base">Plugin Game Map.h5p</code> agar fitur Game Map terpasang.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 8: LANGKAH LUMI 2 - PETA & BACKGROUND ================= -->
+            <section data-bg="#cbd5e1" class="slide flex-col w-full h-full justify-center bg-white rounded-3xl p-6 md:p-9 border-4 border-[#1E3A8A] shadow-2xl overflow-y-auto">
+                <div class="mb-5 bg-[#0B2447] text-white p-4 md:p-5 rounded-2xl anim-up">
+                    <span class="bg-emerald-400 text-slate-950 font-extrabold px-3.5 py-1 rounded-full text-xs md:text-sm uppercase">Infografis Tahap 2 — Arsitektur Peta</span>
+                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold mt-1.5">Merancang Kanvas Peta & Jalur Petualangan</h2>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center my-auto">
+                    <div class="lg:col-span-6 space-y-4 anim-up delay-1">
+                        <div class="bg-blue-50 border-2 border-[#1E3A8A] rounded-2xl p-4 md:p-5 shadow-sm flex gap-4 items-start card-lift">
+                            <span class="w-11 h-11 rounded-xl bg-[#0B2447] text-white font-black text-xl flex items-center justify-center shrink-0">4</span>
+                            <div>
+                                <h4 class="text-lg md:text-xl font-extrabold text-[#0B2447]">Create New H5P → Game Map</h4>
+                                <p class="text-sm md:text-base text-slate-800 font-medium mt-1">Cari <i>"game"</i> di H5P Editor, pilih <b>Game Map</b>, lalu ketik <b>Title</b> (Judul Gim Edukasi).</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-amber-50 border-2 border-amber-500 rounded-2xl p-4 md:p-5 shadow-sm flex gap-4 items-start card-lift">
+                            <span class="w-11 h-11 rounded-xl bg-amber-400 text-[#0B2447] font-black text-xl flex items-center justify-center shrink-0">5</span>
+                            <div>
+                                <h4 class="text-lg md:text-xl font-extrabold text-[#0B2447]">Step 1: Background Image Peta</h4>
+                                <p class="text-sm md:text-base text-slate-800 font-medium mt-1">Klik <b>+ Add</b> untuk mengunggah gambar latar peta dari Canva AI (ukuran <b>16:9</b> format PNG/JPG/GIF).</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-emerald-50 border-2 border-emerald-600 rounded-2xl p-4 md:p-5 shadow-sm flex gap-4 items-start card-lift">
+                            <span class="w-11 h-11 rounded-xl bg-emerald-600 text-white font-black text-xl flex items-center justify-center shrink-0">6</span>
+                            <div>
+                                <h4 class="text-lg md:text-xl font-extrabold text-[#0B2447]">Step 2: Tambah Stage (Ikon Bintang)</h4>
+                                <p class="text-sm md:text-base text-slate-800 font-medium mt-1">Klik tab <b>Step 2: Game map</b> → klik ikon <b>Bintang</b> untuk menaruh 5 pos belajar. Simpan berkala dengan <b>Ctrl+S</b>!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-6 bg-slate-50 rounded-3xl p-6 shadow-lg border-2 border-[#1E3A8A] anim-zoom delay-2">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-sm font-extrabold uppercase text-[#0B2447]"><i class="fa-solid fa-map-location-dot mr-1.5 text-blue-700"></i> Preview Rancangan 5 Stage Peta 16:9</span>
+                            <span class="text-xs bg-[#0B2447] text-amber-300 px-3 py-1 rounded-full font-bold">Linier Path</span>
+                        </div>
+                        <svg class="w-full h-60 rounded-2xl bg-white p-2 border-2 border-blue-200" viewBox="0 0 380 180" fill="none">
+                            <path d="M40 135 Q 105 55, 185 105 T 335 48" stroke="#1E3A8A" stroke-width="4.5" stroke-dasharray="8 6" fill="none"/>
+                            <circle cx="40" cy="135" r="18" fill="#1E3A8A" stroke="#FBBF24" stroke-width="3"/>
+                            <text x="35" y="140" fill="white" font-weight="bold" font-size="14">1</text>
+                            <text x="22" y="170" fill="#0B2447" font-size="11" font-weight="bold">Cover</text>
+
+                            <circle cx="115" cy="82" r="17" fill="#0284C7" stroke="#0B2447" stroke-width="2.5"/>
+                            <text x="110" y="87" fill="white" font-weight="bold" font-size="14">2</text>
+                            <text x="98" y="55" fill="#0B2447" font-size="11" font-weight="bold">Profil</text>
+
+                            <circle cx="195" cy="108" r="17" fill="#10B981" stroke="#0B2447" stroke-width="2.5"/>
+                            <text x="190" y="113" fill="white" font-weight="bold" font-size="14">3</text>
+                            <text x="165" y="142" fill="#0B2447" font-size="11" font-weight="bold">Materi (3x)</text>
+
+                            <circle cx="270" cy="70" r="17" fill="#F59E0B" stroke="#0B2447" stroke-width="2.5"/>
+                            <text x="265" y="75" fill="#0B2447" font-weight="bold" font-size="14">4</text>
+                            <text x="246" y="44" fill="#0B2447" font-size="11" font-weight="bold">Asesmen</text>
+
+                            <circle cx="338" cy="48" r="19" fill="#EF4444" stroke="#FBBF24" stroke-width="3.5"/>
+                            <text x="333" y="53" fill="white" font-weight="bold" font-size="14">5</text>
+                            <text x="320" y="82" fill="#991B1B" font-size="11" font-weight="bold">Finish</text>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 9: LANGKAH LUMI 3 - JENIS KONTEN & KONEKSI POS ================= -->
+            <section data-bg="#cbd5e1" class="slide flex-col w-full h-full justify-center bg-white rounded-3xl p-6 md:p-9 border-4 border-[#1E3A8A] shadow-2xl overflow-y-auto">
+                <div class="text-center mb-6 bg-[#0B2447] text-white p-4 md:p-5 rounded-2xl anim-up">
+                    <span class="bg-amber-400 text-slate-950 font-extrabold px-3.5 py-1 rounded-full text-xs md:text-sm uppercase">Infografis Tahap 3 — Ragam Aktivitas & Koneksi</span>
+                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold mt-1.5">Menyusun Konten Tiap Pos & Menghubungkan Jalur</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch my-auto">
+                    <div class="bg-blue-50 border-2 border-[#1E3A8A] rounded-3xl p-6 shadow-md flex flex-col justify-between card-lift anim-up delay-1">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="bg-[#0B2447] text-white font-black px-3.5 py-1 rounded-lg text-xs md:text-sm">PRESENTASI GAMBAR</span>
+                                <i class="fa-solid fa-chalkboard text-3xl text-[#1E3A8A]"></i>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-extrabold text-[#0B2447] mb-2.5">Course Presentation</h3>
+                            <p class="text-slate-800 text-base md:text-lg font-medium leading-relaxed">
+                                Unggah gambar aset Canva AI via ikon <b>Image</b>. Tambahkan beberapa halaman lewat <b>Add new slide</b> agar muncul tombol navigasi <b>Back & Next</b> otomatis.
+                            </p>
+                        </div>
+                        <div class="mt-4 bg-white border border-blue-300 p-3 rounded-xl text-sm text-[#0B2447] font-extrabold text-center">
+                            Cocok untuk Cover, Profil & Materi
+                        </div>
+                    </div>
+
+                    <div class="bg-amber-50 border-2 border-amber-500 rounded-3xl p-6 shadow-md flex flex-col justify-between card-lift anim-up delay-2">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="bg-amber-400 text-slate-950 font-black px-3.5 py-1 rounded-lg text-xs md:text-sm">ASESMEN INTERAKTIF</span>
+                                <i class="fa-solid fa-list-check text-3xl text-amber-600"></i>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-extrabold text-[#0B2447] mb-2.5">Question Set (Multi-Tipe)</h3>
+                            <p class="text-slate-800 text-base md:text-lg font-medium leading-relaxed">
+                                Gabungkan beragam tipe soal dalam satu pos asesmen: <b>Multiple Choice</b>, <b>True/False</b>, <b>Drag the Words</b>, hingga <b>Fill in the Blanks</b>.
+                            </p>
+                        </div>
+                        <div class="mt-4 bg-white border border-amber-300 p-3 rounded-xl text-sm text-amber-950 font-extrabold text-center">
+                            Evaluasi Seru dalam Satu Misi
+                        </div>
+                    </div>
+
+                    <div class="bg-emerald-50 border-2 border-emerald-600 rounded-3xl p-6 shadow-md flex flex-col justify-between card-lift anim-up delay-3">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="bg-emerald-600 text-white font-black px-3.5 py-1 rounded-lg text-xs md:text-sm">KONEKSI ANTAR POS</span>
+                                <i class="fa-solid fa-link text-3xl text-emerald-600"></i>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-extrabold text-[#0B2447] mb-2.5">Connected Stages</h3>
+                            <p class="text-slate-800 text-base md:text-lg font-medium leading-relaxed">
+                                Di setiap pos baru (Stage 2 s.d. 5), centang <b>Connected stages</b> ke pos sebelumnya agar jalur perjalanan terbuka berurutan dari Stage 1 hingga Finish.
+                            </p>
+                        </div>
+                        <div class="mt-4 bg-white border border-emerald-300 p-3 rounded-xl text-sm text-emerald-950 font-extrabold text-center">
+                            Stage 1 → 2 → 3 → 4 → 5 (Finish)
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 10: LANGKAH LUMI 4 - GARIS FINIS & AUDIO ================= -->
+            <section data-bg="#cbd5e1" class="slide flex-col w-full h-full justify-center bg-white rounded-3xl p-6 md:p-9 border-4 border-[#1E3A8A] shadow-2xl overflow-y-auto">
+                <div class="text-center mb-6 bg-[#0B2447] text-white p-4 md:p-5 rounded-2xl anim-up">
+                    <span class="bg-rose-500 text-white font-extrabold px-3.5 py-1 rounded-full text-xs md:text-sm uppercase">Infografis Tahap 4 — Garis Finis & Efek Audio</span>
+                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold mt-1.5">Menambahkan Stage 5 (Finish) & Pengaturan Suara</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
+                    <div class="bg-gradient-to-br from-amber-300 via-amber-400 to-orange-400 text-slate-950 rounded-3xl p-6 shadow-md border-2 border-amber-600 border-t-8 border-t-[#0B2447] card-lift anim-up delay-1">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs md:text-sm font-black uppercase bg-[#0B2447] text-amber-300 px-3 py-1 rounded">Stage 5: Garis Finis</span>
+                            <i class="fa-solid fa-flag-checkered text-3xl text-[#0B2447]"></i>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-black text-[#0B2447] mb-2.5">Special Stage: Finish</h3>
+                        <p class="text-slate-950 font-bold text-base md:text-lg leading-relaxed">
+                            Klik ikon <b>Hati (Add special stage)</b> → pilih <b>Finish</b>. Hubungkan ke Stage 4 agar rekap skor & persentase kelulusan murid otomatis tampil!
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 rounded-3xl p-6 shadow-md border-2 border-[#1E3A8A] border-t-8 border-t-[#1E3A8A] card-lift anim-up delay-2">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs md:text-sm font-extrabold text-blue-800 uppercase">Tampilan Peta</span>
+                            <i class="fa-solid fa-palette text-3xl text-[#1E3A8A]"></i>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-extrabold text-[#0B2447] mb-2.5">Visual Settings</h3>
+                        <p class="text-slate-800 text-base md:text-lg font-medium leading-relaxed">
+                            Sesuaikan warna ikon setiap pos (<i>belum dibuka, terkunci, selesai</i>) serta ketebalan dan warna garis jalur penghubung (<i>Paths</i>).
+                        </p>
+                    </div>
+
+                    <div class="bg-emerald-50 rounded-3xl p-6 shadow-md border-2 border-emerald-600 border-t-8 border-t-emerald-600 card-lift anim-up delay-3">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs md:text-sm font-extrabold text-emerald-800 uppercase">Suasana Gim</span>
+                            <i class="fa-solid fa-volume-high text-3xl text-emerald-600"></i>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-extrabold text-[#0B2447] mb-2.5">Audio Settings</h3>
+                        <p class="text-slate-800 text-base md:text-lg font-medium leading-relaxed">
+                            Tambahkan musik latar ceria (<i>Background music</i>) serta efek suara klik, benar/salah, dan perayaan saat mencapai garis finis.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 11: LANGKAH LUMI 5 - EXPORT HTML5 ================= -->
+            <section data-bg="#cbd5e1" class="slide flex-col w-full h-full justify-center bg-white rounded-3xl p-6 md:p-9 border-4 border-[#1E3A8A] shadow-2xl overflow-y-auto">
+                <div class="mb-5 bg-[#0B2447] text-white p-4 md:p-5 rounded-2xl anim-up">
+                    <span class="bg-emerald-400 text-slate-950 font-extrabold px-3.5 py-1 rounded-full text-xs md:text-sm uppercase">Infografis Tahap 5 — Finalisasi & Ekspor</span>
+                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold mt-1.5">Uji Coba di Tab VIEW & Export ke HTML5 Mandiri</h2>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch my-auto">
+                    <div class="lg:col-span-5 bg-blue-50 border-2 border-[#1E3A8A] rounded-3xl p-6 shadow-md flex flex-col justify-between anim-up delay-1">
+                        <div>
+                            <h3 class="text-xl md:text-2xl font-extrabold text-[#0B2447] mb-4"><i class="fa-solid fa-magnifying-glass-chart mr-2 text-blue-700"></i>Checklist Sebelum Export</h3>
+                            <div class="space-y-3.5 text-sm md:text-base text-slate-800 font-medium">
+                                <div class="bg-white p-4 rounded-2xl border border-blue-200 shadow-sm">
+                                    <b class="text-[#0B2447] text-base md:text-lg block mb-1">1. Simpan Proyek (.h5p):</b>
+                                    Tekan <b>Ctrl + S</b> agar file mentah proyek tersimpan aman dan bisa diedit kembali kapan saja.
+                                </div>
+                                <div class="bg-white p-4 rounded-2xl border border-blue-200 shadow-sm">
+                                    <b class="text-emerald-800 text-base md:text-lg block mb-1">2. Simulasi Penuh (Tab VIEW):</b>
+                                    Mainkan dari Stage 1 sampai Stage 5 (Finish) untuk memastikan semua tombol & koneksi berjalan mulus.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 bg-[#0B2447] text-amber-300 p-3.5 rounded-xl text-sm md:text-base font-extrabold text-center shadow-sm">
+                            <i class="fa-solid fa-circle-check mr-1.5"></i> Siap Diekspor menjadi Web HTML5!
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-7 bg-emerald-50 border-2 border-emerald-600 rounded-3xl p-6 shadow-md anim-up delay-2">
+                        <h3 class="text-xl md:text-2xl font-extrabold text-[#0B2447] mb-4"><i class="fa-solid fa-file-code mr-2 text-emerald-700"></i>7 Langkah Export ke HTML5 Mandiri</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm md:text-base text-slate-900 font-semibold">
+                            <div class="bg-white p-3.5 rounded-xl border border-emerald-300"><b class="text-emerald-700">1.</b> Klik <b>File → Export → HTML</b></div>
+                            <div class="bg-white p-3.5 rounded-xl border border-emerald-300"><b class="text-emerald-700">2.</b> Isi Margin X & Y = <code class="bg-emerald-100 text-emerald-950 px-1.5 rounded font-bold">20</code> (px)</div>
+                            <div class="bg-white p-3.5 rounded-xl border border-emerald-300"><b class="text-emerald-700">3.</b> Atur Max Width = <code class="bg-emerald-100 text-emerald-950 px-1.5 rounded font-bold">1024</code> (px)</div>
+                            <div class="bg-white p-3.5 rounded-xl border border-emerald-300"><b class="text-emerald-700">4.</b> Centang <b>Restrict Width & Center</b></div>
+                            <div class="bg-white p-3.5 rounded-xl border border-emerald-300"><b class="text-emerald-700">5.</b> Atur <i>Show Embed/Rights</i> (opsional)</div>
+                            <div class="bg-white p-3.5 rounded-xl border border-emerald-300"><b class="text-emerald-700">6.</b> Klik <b>Export</b> → beri nama → <b>Save</b></div>
+                        </div>
+                        <div class="mt-4 bg-[#0B2447] text-white p-4 rounded-xl text-sm md:text-base font-semibold">
+                            <i class="fa-solid fa-rocket text-amber-300 mr-1.5"></i> <b class="text-amber-300">7. Hasil Akhir:</b> File <code class="bg-white/20 px-1.5 rounded font-bold">.html</code> siap di-hosting gratis ke internet lewat <b>GitHub Pages</b>!
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 12: PRAKTIK MEMBUAT GAME EDUKASI LUMI (5 STAGE + CANVA AI) ================= -->
+            <section data-bg="#cbd5e1" class="slide flex-col w-full h-full justify-between bg-white rounded-3xl p-5 md:p-8 border-4 border-[#1E3A8A] shadow-2xl overflow-y-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-3 bg-[#0B2447] text-white p-4 md:p-5 rounded-2xl shadow-md anim-up">
+                    <div>
+                        <span class="bg-amber-400 text-slate-950 font-extrabold px-4 py-1 rounded-full uppercase text-xs md:text-sm tracking-wider inline-flex items-center gap-1.5">
+                            <i class="fa-solid fa-laptop-code"></i> Lembar Kerja Praktik Peserta
+                        </span>
+                        <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white mt-1.5">Praktik Membuat Game Edukasi LUMI (5 Stage)</h2>
+                    </div>
+                    <div class="bg-white/15 border-2 border-amber-400 px-4 py-2.5 rounded-2xl flex items-center gap-3 shrink-0">
+                        <div class="w-11 h-11 rounded-xl bg-amber-400 text-[#0B2447] flex items-center justify-center text-xl font-black shrink-0">
+                            <i class="fa-solid fa-map"></i>
+                        </div>
+                        <div class="text-left">
+                            <span class="text-xs font-extrabold uppercase text-amber-300 block">Kanvas Utama: MAP (5 Stage)</span>
+                            <span class="text-sm md:text-base font-bold text-white">Aset Gambar Ukuran <b>16:9</b> dari <b>Canva AI</b></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-auto anim-up delay-1">
+                    <!-- STAGE 1 -->
+                    <div class="bg-blue-50 rounded-3xl p-5 border-2 border-[#1E3A8A] shadow-md flex flex-col justify-between card-lift">
+                        <div>
+                            <div class="flex justify-between items-center mb-2.5">
+                                <span class="bg-[#0B2447] text-amber-300 font-black px-3.5 py-1 rounded-xl text-xs md:text-sm">STAGE 1</span>
+                                <span class="bg-white text-[#0B2447] border border-blue-300 text-xs font-extrabold px-2.5 py-1 rounded-lg">16:9 Canva AI</span>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-extrabold text-[#0B2447] mb-2">Cover Game Edukasi</h3>
+                            <p class="text-sm md:text-base text-slate-800 font-medium leading-relaxed">
+                                Halaman pembuka berisi ucapan <b>"Selamat Datang di Game Edukasi"</b> dengan judul mata pelajaran menggunakan aset gambar ukuran <b>16:9</b> hasil generate <b>Canva AI</b>.
+                            </p>
+                        </div>
+                        <div class="mt-3 bg-white border border-blue-200 rounded-xl p-2.5 text-xs md:text-sm font-bold text-[#0B2447] flex items-center gap-2">
+                            <i class="fa-solid fa-image text-blue-700"></i> Tipe H5P: Course Presentation (1 Slide)
+                        </div>
+                    </div>
+
+                    <!-- STAGE 2 -->
+                    <div class="bg-sky-50 rounded-3xl p-5 border-2 border-sky-600 shadow-md flex flex-col justify-between card-lift">
+                        <div>
+                            <div class="flex justify-between items-center mb-2.5">
+                                <span class="bg-sky-700 text-white font-black px-3.5 py-1 rounded-xl text-xs md:text-sm">STAGE 2</span>
+                                <span class="bg-white text-sky-900 border border-sky-300 text-xs font-extrabold px-2.5 py-1 rounded-lg">Gambar Canva AI</span>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-extrabold text-[#0B2447] mb-2">Profil Pengembang</h3>
+                            <p class="text-sm md:text-base text-slate-800 font-medium leading-relaxed">
+                                Kartu perkenalan pembuat media (Nama Guru, Mapel, Sekolah, & Tujuan Belajar) yang dipercantik dengan ilustrasi karakter/bingkai dari <b>Canva AI</b>.
+                            </p>
+                        </div>
+                        <div class="mt-3 bg-white border border-sky-200 rounded-xl p-2.5 text-xs md:text-sm font-bold text-sky-950 flex items-center gap-2">
+                            <i class="fa-solid fa-id-card text-sky-700"></i> Terhubung ke Stage 1
+                        </div>
+                    </div>
+
+                    <!-- STAGE 3 -->
+                    <div class="bg-emerald-50 rounded-3xl p-5 border-2 border-emerald-600 shadow-md flex flex-col justify-between card-lift">
+                        <div>
+                            <div class="flex justify-between items-center mb-2.5">
+                                <span class="bg-emerald-600 text-white font-black px-3.5 py-1 rounded-xl text-xs md:text-sm">STAGE 3</span>
+                                <span class="bg-white text-emerald-900 border border-emerald-300 text-xs font-extrabold px-2.5 py-1 rounded-lg">3 Slide Canva AI</span>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-extrabold text-[#0B2447] mb-2">Materi Inti (3 Slide)</h3>
+                            <p class="text-sm md:text-base text-slate-800 font-medium leading-relaxed">
+                                Menyajikan <b>3 slide gambar materi</b> dari <b>Canva AI</b> secara interaktif. Pada tampilan gambar terdapat tombol navigasi <b>Back</b> dan <b>Next</b> untuk berpindah halaman.
+                            </p>
+                        </div>
+                        <div class="mt-3 bg-white border border-emerald-300 rounded-xl p-2.5 text-xs md:text-sm font-extrabold text-emerald-950 flex items-center justify-between">
+                            <span><i class="fa-solid fa-arrow-left mr-1"></i> Back</span>
+                            <span class="text-emerald-700">Slide 1 / 3</span>
+                            <span>Next <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 anim-up delay-2">
+                    <!-- STAGE 4 -->
+                    <div class="md:col-span-7 bg-amber-50 rounded-3xl p-5 border-2 border-amber-500 shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 card-lift">
+                        <div class="space-y-1.5">
+                            <div class="flex items-center gap-2.5">
+                                <span class="bg-amber-400 text-slate-950 font-black px-3.5 py-1 rounded-xl text-xs md:text-sm">STAGE 4</span>
+                                <h3 class="text-xl md:text-2xl font-extrabold text-[#0B2447]">Asesmen (Berbagai Tipe Soal)</h3>
+                            </div>
+                            <p class="text-sm md:text-base text-slate-800 font-medium leading-relaxed">
+                                Uji pemahaman siswa menggunakan variasi soal interaktif dalam <i>Question Set</i>: <b>Pilihan Ganda</b>, <b>Benar/Salah</b>, <b>Seret Kata (Drag Words)</b>, & <b>Isian Singkat</b>.
+                            </p>
+                        </div>
+                        <div class="bg-white border border-amber-300 rounded-2xl p-3 text-center shrink-0 w-full sm:w-auto">
+                            <i class="fa-solid fa-list-check text-2xl text-amber-600 mb-1 block"></i>
+                            <span class="text-xs font-extrabold text-[#0B2447] block">Multi-Tipe Soal</span>
+                        </div>
+                    </div>
+
+                    <!-- STAGE 5 -->
+                    <div class="md:col-span-5 bg-gradient-to-r from-[#0B2447] to-[#1E3A8A] text-white rounded-3xl p-5 border-2 border-blue-800 shadow-md flex items-center justify-between gap-4 card-lift">
+                        <div class="space-y-1.5">
+                            <div class="flex items-center gap-2.5">
+                                <span class="bg-rose-500 text-white font-black px-3.5 py-1 rounded-xl text-xs md:text-sm">STAGE 5</span>
+                                <h3 class="text-xl md:text-2xl font-extrabold text-amber-300">Finish (Garis Akhir)</h3>
+                            </div>
+                            <p class="text-sm md:text-base text-blue-100 font-medium leading-relaxed">
+                                Pos terakhir petualangan (<i>Special Stage: Finish</i>) untuk menampilkan total skor & bintang pencapaian siswa.
+                            </p>
+                        </div>
+                        <div class="w-14 h-14 rounded-2xl bg-amber-400 text-[#0B2447] flex items-center justify-center text-3xl shrink-0 shadow-md">
+                            <i class="fa-solid fa-flag-checkered"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 13: CARA UPLOAD FILE HTML KE GITHUB PAGES ================= -->
+            <section data-bg="#cbd5e1" class="slide flex-col w-full h-full justify-center bg-white rounded-3xl p-6 md:p-9 border-4 border-[#1E3A8A] shadow-2xl overflow-y-auto">
+                <div class="flex flex-wrap items-center justify-between mb-5 bg-[#0B2447] text-white p-4 md:p-5 rounded-2xl gap-3 anim-up">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-12 h-12 rounded-2xl bg-white text-[#0B2447] flex items-center justify-center text-3xl shadow-md">
+                            <i class="fa-brands fa-github"></i>
+                        </div>
+                        <div>
+                            <span class="bg-amber-400 text-slate-950 font-extrabold px-3 py-0.5 rounded-full text-xs md:text-sm uppercase tracking-wider">Hosting Gratis Tanpa Coding</span>
+                            <h2 class="text-2xl md:text-3xl font-extrabold text-white mt-1">Publikasi File HTML ke Web via <span class="text-amber-300">GitHub Pages</span></h2>
+                        </div>
+                    </div>
+                    <a href="https://github.com" target="_blank" class="bg-white hover:bg-blue-50 text-[#0B2447] font-extrabold px-5 py-3 rounded-xl text-sm md:text-base flex items-center gap-2 shadow-md transition">
+                        <i class="fa-brands fa-github"></i> Buka GitHub.com
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 my-auto">
+                    <div class="bg-amber-50 border-2 border-amber-500 rounded-2xl p-4 flex flex-col justify-between shadow-sm card-lift anim-up delay-1">
+                        <div>
+                            <span class="bg-amber-400 text-slate-950 font-black px-3 py-1 rounded-md text-xs md:text-sm">LANGKAH 1</span>
+                            <h4 class="font-extrabold text-[#0B2447] text-lg md:text-xl mt-3 mb-2">Ubah Nama File</h4>
+                            <p class="text-sm md:text-base text-slate-800 font-medium leading-relaxed">
+                                Ubah nama file export LUMI menjadi <code class="bg-white text-amber-950 border border-amber-300 px-1.5 rounded font-bold">index.html</code> (huruf kecil semua).
+                            </p>
+                        </div>
+                        <div class="mt-3 bg-white border border-amber-300 p-2.5 rounded-lg text-xs md:text-sm text-amber-950 font-mono font-bold text-center">
+                            gim.html → index.html
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 border-2 border-[#1E3A8A] rounded-2xl p-4 flex flex-col justify-between shadow-sm card-lift anim-up delay-1">
+                        <div>
+                            <span class="bg-[#0B2447] text-white font-black px-3 py-1 rounded-md text-xs md:text-sm">LANGKAH 2</span>
+                            <h4 class="font-extrabold text-[#0B2447] text-lg md:text-xl mt-3 mb-2">Buat Repository</h4>
+                            <p class="text-sm md:text-base text-slate-800 font-medium leading-relaxed">
+                                Login <b>GitHub.com</b> → klik <b>+</b> di kanan atas → <b>New repository</b> → isi nama repo (misal: <code class="bg-white text-[#0B2447] border border-blue-300 px-1 rounded font-bold">gim-ipa</code>).
+                            </p>
+                        </div>
+                        <div class="mt-3 bg-white border border-blue-300 p-2.5 rounded-lg text-xs md:text-sm text-[#0B2447] font-bold text-center">
+                            Pilih Public → Create
+                        </div>
+                    </div>
+
+                    <div class="bg-emerald-50 border-2 border-emerald-600 rounded-2xl p-4 flex flex-col justify-between shadow-sm card-lift anim-up delay-2">
+                        <div>
+                            <span class="bg-emerald-600 text-white font-black px-3 py-1 rounded-md text-xs md:text-sm">LANGKAH 3</span>
+                            <h4 class="font-extrabold text-[#0B2447] text-lg md:text-xl mt-3 mb-2">Upload File HTML</h4>
+                            <p class="text-sm md:text-base text-slate-800 font-medium leading-relaxed">
+                                Klik <b>uploading an existing file</b> → seret <code class="bg-white text-emerald-950 border border-emerald-300 px-1 rounded font-bold">index.html</code> ke kotak unggah → klik <b>Commit changes</b>.
+                            </p>
+                        </div>
+                        <div class="mt-3 bg-white border border-emerald-300 p-2.5 rounded-lg text-xs md:text-sm text-emerald-950 font-bold text-center">
+                            <i class="fa-solid fa-cloud-arrow-up mr-1"></i> Commit Changes
+                        </div>
+                    </div>
+
+                    <div class="bg-purple-50 border-2 border-purple-600 rounded-2xl p-4 flex flex-col justify-between shadow-sm card-lift anim-up delay-3">
+                        <div>
+                            <span class="bg-purple-600 text-white font-black px-3 py-1 rounded-md text-xs md:text-sm">LANGKAH 4</span>
+                            <h4 class="font-extrabold text-[#0B2447] text-lg md:text-xl mt-3 mb-2">Aktifkan Pages</h4>
+                            <p class="text-sm md:text-base text-slate-800 font-medium leading-relaxed">
+                                Buka tab <b>Settings</b> → klik menu <b>Pages</b> di kiri → pada <i>Branch</i> pilih <b>main</b> lalu klik <b>Save</b>.
+                            </p>
+                        </div>
+                        <div class="mt-3 bg-white border border-purple-300 p-2.5 rounded-lg text-xs md:text-sm text-purple-950 font-bold text-center">
+                            Branch: main → Save
+                        </div>
+                    </div>
+
+                    <div class="bg-[#0B2447] text-white border-2 border-blue-800 rounded-2xl p-4 flex flex-col justify-between shadow-md card-lift anim-up delay-4">
+                        <div>
+                            <span class="bg-amber-400 text-slate-950 font-black px-3 py-1 rounded-md text-xs md:text-sm">LANGKAH 5</span>
+                            <h4 class="font-extrabold text-white text-lg md:text-xl mt-3 mb-2">Tautan Web Siap!</h4>
+                            <p class="text-sm md:text-base text-blue-100 font-medium leading-relaxed">
+                                Refresh halaman setelah ±1 menit. Link web gim edukasi muncul di bagian atas siap dibagikan ke siswa!
+                            </p>
+                        </div>
+                        <div class="mt-3 bg-white/15 p-2.5 rounded-lg text-xs text-amber-300 font-mono font-bold text-center truncate">
+                            username.github.io/gim
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 14: SIMULASI GAME BLASTROOM (LINK DIPERBARUI) ================= -->
+            <section data-bg="#cbd5e1" class="slide flex-col w-full h-full justify-center overflow-y-auto">
+                <div class="bg-gradient-to-r from-[#0B2447] via-[#19376D] to-indigo-800 text-white rounded-3xl p-7 md:p-11 shadow-2xl grid grid-cols-1 md:grid-cols-12 gap-8 items-center border-4 border-white relative overflow-hidden">
+                    <div class="absolute -right-16 -bottom-16 w-80 h-80 bg-amber-400 rounded-full opacity-20 blur-3xl pointer-events-none"></div>
+
+                    <div class="md:col-span-7 space-y-5 z-10 anim-up delay-1">
+                        <span class="bg-amber-400 text-slate-950 font-extrabold px-4 py-1.5 rounded-full text-sm uppercase tracking-wider shadow-sm">
+                            <i class="fa-solid fa-fire mr-1.5"></i> Ice Breaking & Praktik Langsung
+                        </span>
+                        <h2 class="text-3xl md:text-5xl font-extrabold leading-tight">
+                            Saatnya Bermain Bersama di <span class="text-amber-300">Blastroom!</span>
+                        </h2>
+                        <p class="text-blue-100 text-lg md:text-xl font-medium leading-relaxed">
+                            Mari rasakan langsung keseruan gim edukasi interaktif berbasis kompetisi. Akses dashboard set soal guru atau pindai QR Code untuk bergabung!
+                        </p>
+
+                        <div class="bg-white/15 backdrop-blur-md border-2 border-amber-300/60 rounded-2xl p-5 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+                            <div class="break-all">
+                                <span class="text-xs md:text-sm text-blue-200 uppercase font-bold block mb-1">Tautan Dashboard & Game Blastroom:</span>
+                                <a href="https://blastroom.net/teacher/my-sets" target="_blank" class="text-lg md:text-xl xl:text-2xl font-extrabold text-amber-300 hover:underline select-all">
+                                    https://blastroom.net/teacher/my-sets
+                                </a>
+                            </div>
+                            <a href="https://blastroom.net/teacher/my-sets" target="_blank" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold px-6 py-3.5 rounded-xl shadow-md transition transform hover:scale-105 whitespace-nowrap text-base shrink-0">
+                                Buka Blastroom <i class="fa-solid fa-gamepad ml-1.5"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-5 flex flex-col items-center justify-center bg-white text-[#0B2447] rounded-3xl p-6 shadow-xl z-10 anim-zoom delay-2">
+                        <p class="font-extrabold text-lg md:text-xl text-[#0B2447] mb-3">SCAN TAUTAN BLASTROOM</p>
+                        <div class="p-3 border-4 border-[#1E3A8A] rounded-2xl float-fast">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https%3A%2F%2Fblastroom.net%2Fteacher%2Fmy-sets" alt="QR Code Blastroom" class="w-48 h-48 md:w-52 md:h-52">
+                        </div>
+                        <div class="mt-4 text-center">
+                            <span class="text-xs md:text-sm font-bold text-slate-600 uppercase block">Portal Guru & Permainan:</span>
+                            <p class="text-lg md:text-xl font-black text-[#1E3A8A] mt-0.5">blastroom.net/teacher/my-sets</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 15: PENUTUP & REFLEKSI ================= -->
+            <section data-bg="#cbd5e1" class="slide flex-col w-full h-full justify-center items-center text-center overflow-y-auto">
+                <div class="max-w-5xl bg-gradient-to-br from-[#0B2447] via-[#19376D] to-[#1E40AF] text-white rounded-3xl p-8 md:p-12 border-4 border-white shadow-2xl relative overflow-hidden anim-zoom">
+                    <div class="w-20 h-20 bg-amber-400 text-[#0B2447] rounded-3xl flex items-center justify-center text-4xl mx-auto mb-5 shadow-md float-slow">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-5">
+                        Terima Kasih & Selamat Berkarya!
+                    </h2>
+                    <blockquote class="text-lg md:text-2xl text-white italic font-semibold leading-relaxed mb-8 bg-white/15 backdrop-blur-sm p-6 rounded-2xl border border-white/25">
+                        "Teknologi tidak akan pernah menggantikan guru hebat, tetapi teknologi di tangan guru yang hebat akan menjadi transformasi luar biasa bagi murid-muridnya."
+                    </blockquote>
+
+                    <div class="border-t-2 border-white/25 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-left">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-white text-[#0B2447] flex items-center justify-center font-black text-xl shrink-0">BJW</div>
+                            <div>
+                                <p class="font-extrabold text-white text-xl md:text-2xl">Bangkit Joko Widodo, S.Si., M.Pd.</p>
+                                <p class="text-blue-100 text-sm md:text-base">Guru Matematika — SMA Taruna Muhammadiyah Gunungpring</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://drive.google.com/drive/folders/1NtRjz46OT1ELZDtmqRcqZHsZMQP76OwT?usp=sharing" target="_blank" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold px-5 py-3 rounded-xl text-base transition flex items-center gap-2 shadow-sm">
+                                <i class="fa-brands fa-google-drive"></i> Materi LUMI
+                            </a>
+                            <button type="button" id="restartSlideBtn" class="bg-white/20 hover:bg-white/30 text-white font-bold px-5 py-3 rounded-xl text-base transition cursor-pointer">
+                                <i class="fa-solid fa-rotate-left mr-1"></i> Awal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- BOTTOM NAVIGATION BAR (Putih & Biru Navy Kontras Tinggi, Hilang saat Full Screen) -->
+        <footer id="presentationFooter" class="h-20 bg-white border-t-2 border-slate-300 px-4 md:px-6 flex items-center justify-between relative z-50 shrink-0 text-[#0B2447] shadow-sm">
+            <div class="flex items-center gap-3">
+                <span class="font-extrabold text-[#0B2447] text-sm md:text-base">Workshop SMA N 1 Mertoyudan</span>
+                <span class="hidden sm:inline text-slate-300">|</span>
+                <span id="slideCounter" class="bg-[#0B2447] text-amber-300 font-extrabold px-3.5 py-1 rounded-lg text-sm">Slide 1 / 15</span>
+            </div>
+
+            <div id="slideDots" class="hidden lg:flex gap-1.5"></div>
+
+            <div class="flex items-center gap-2 md:gap-3">
+                <button type="button" id="prevBtn" class="bg-slate-200 hover:bg-slate-300 disabled:opacity-30 text-[#0B2447] font-bold px-4 md:px-5 py-2.5 rounded-xl transition flex items-center gap-2 cursor-pointer text-sm md:text-base">
+                    <i class="fa-solid fa-chevron-left"></i> <span class="hidden sm:inline">Sebelumnya</span>
+                </button>
+                <button type="button" id="nextBtn" class="bg-amber-400 hover:bg-amber-300 disabled:opacity-30 text-slate-950 font-extrabold px-4 md:px-5 py-2.5 rounded-xl transition flex items-center gap-2 shadow-sm cursor-pointer text-sm md:text-base">
+                    <span class="hidden sm:inline">Selanjutnya</span> <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <button type="button" id="fullscreenBtn" title="Layar Penuh (Tekan F)" class="bg-[#0B2447] hover:bg-blue-900 text-white font-bold px-4 py-2.5 rounded-xl transition flex items-center gap-2 cursor-pointer ml-1 shadow-sm text-sm md:text-base">
+                    <i id="fullscreenIcon" class="fa-solid fa-expand"></i>
+                    <span class="hidden xl:inline">Full Screen</span>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- =========================================================================
+         MODE 2: FORMULIR DI HP PESERTA (?mode=peserta)
+         ========================================================================= -->
+    <div id="participantWrapper" style="display: none;" class="min-h-screen items-center justify-center p-4 bg-gradient-to-br from-[#0B2447] via-[#19376D] to-blue-800 overflow-y-auto">
+        <div class="w-full max-w-md bg-white border-4 border-amber-400 rounded-3xl p-6 md:p-8 shadow-2xl">
+            <div class="text-center mb-6">
+                <span class="bg-blue-100 text-[#0B2447] text-xs font-extrabold px-3.5 py-1 rounded-full uppercase">Workshop SMAN 1 Mertoyudan</span>
+                <h2 class="text-2xl font-extrabold text-[#0B2447] mt-2">Kirim Pendapat Anda</h2>
+                <p class="text-xs text-slate-600 mt-1">Jawaban Bapak/Ibu akan langsung tampil di layar utama</p>
+            </div>
+
+            <form id="opinionForm" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nama Bapak/Ibu (Opsional)</label>
+                    <input type="text" id="inputNama" placeholder="Contoh: Bu Siti / Pak Budi" class="w-full border-2 border-slate-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#0B2447]">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-slate-800 mb-1">1. Media pembelajaran interaktif apa yang paling sering Anda gunakan di kelas?</label>
+                    <textarea id="inputJawab1" required rows="2" placeholder="Contoh: Quizizz, Wordwall, Canva, PPT Interaktif..." class="w-full border-2 border-slate-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#0B2447]"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-slate-800 mb-1">2. Apa kendala terbesar saat membuat/menggunakannya?</label>
+                    <textarea id="inputJawab2" required rows="2" placeholder="Contoh: Waktu pembuatan lama, sinyal HP siswa..." class="w-full border-2 border-slate-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#0B2447]"></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn" class="w-full bg-[#0B2447] hover:bg-blue-900 text-white font-extrabold py-3.5 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-paper-plane"></i> Kirim ke Layar Utama
+                </button>
+            </form>
+
+            <div id="successMessage" style="display: none;" class="text-center py-8 space-y-3">
+                <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h3 class="text-xl font-extrabold text-[#0B2447]">Terima Kasih!</h3>
+                <p class="text-sm text-slate-600">Pendapat Bapak/Ibu sudah terkirim dan akan segera muncul di layar proyektor.</p>
+                <button type="button" id="resetFormBtn" class="mt-4 bg-blue-50 text-[#0B2447] font-bold px-4 py-2 rounded-xl text-xs hover:bg-blue-100 cursor-pointer">Kirim pendapat lainnya</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyCAMB_WcetcrbBb5eK_5Bb4X2czGxnmYXA9o6z5XQIcrTcWugDotYD6paDVrKFEGRcWA/exec";
+            const urlParams = new URLSearchParams(window.location.search);
+            const isParticipant = urlParams.get('mode') === 'peserta';
+
+            if (isParticipant) {
+                document.body.style.overflow = 'auto';
+                document.getElementById('participantWrapper').style.display = 'flex';
+                initParticipantMode();
+            } else {
+                document.getElementById('presentationWrapper').style.display = 'flex';
+                initPresentationMode();
+            }
+
+            function initPresentationMode() {
+                let currentSlide = 0;
+                const slides = document.querySelectorAll('.slide');
+                const totalSlides = slides.length;
+                const progressBar = document.getElementById('progressBar');
+                const slideCounter = document.getElementById('slideCounter');
+                const prevBtn = document.getElementById('prevBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                const slideDots = document.getElementById('slideDots');
+                const fullscreenBtn = document.getElementById('fullscreenBtn');
+                const fullscreenIcon = document.getElementById('fullscreenIcon');
+                const restartSlideBtn = document.getElementById('restartSlideBtn');
+                const manualRefreshBtn = document.getElementById('manualRefreshBtn');
+
+                slideDots.innerHTML = '';
+                for (let i = 0; i < totalSlides; i++) {
+                    const dot = document.createElement('button');
+                    dot.type = 'button';
+                    dot.className = `h-2.5 rounded-full transition-all cursor-pointer ${i === 0 ? 'bg-[#0B2447] w-6' : 'bg-slate-300 w-2.5 hover:bg-slate-400'}`;
+                    dot.title = `Ke Slide ${i + 1}`;
+                    dot.addEventListener('click', function() {
+                        goToSlide(i);
+                    });
+                    slideDots.appendChild(dot);
+                }
+
+                const currentBaseUrl = window.location.href.split('?')[0];
+                const participantUrl = `${currentBaseUrl}?mode=peserta`;
+                const qrImg = document.getElementById('qrImage');
+                if (qrImg) {
+                    qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(participantUrl)}`;
+                }
+
+                function updateUI() {
+                    slides.forEach((slide, index) => {
+                        if (index === currentSlide) {
+                            slide.classList.add('active');
+                            const bgColor = slide.getAttribute('data-bg');
+                            if (bgColor) {
+                                document.body.style.backgroundColor = bgColor;
+                            }
+                        } else {
+                            slide.classList.remove('active');
+                        }
+                    });
+
+                    const progress = ((currentSlide + 1) / totalSlides) * 100;
+                    progressBar.style.width = `${progress}%`;
+                    slideCounter.textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
+
+                    prevBtn.disabled = (currentSlide === 0);
+                    nextBtn.disabled = (currentSlide === totalSlides - 1);
+
+                    Array.from(slideDots.children).forEach((dot, index) => {
+                        dot.className = `h-2.5 rounded-full transition-all cursor-pointer ${index === currentSlide ? 'bg-[#0B2447] w-6' : 'bg-slate-300 w-2.5 hover:bg-slate-400'}`;
+                    });
+                }
+
+                function changeSlide(step) {
+                    const target = currentSlide + step;
+                    if (target >= 0 && target < totalSlides) {
+                        currentSlide = target;
+                        updateUI();
+                    }
+                }
+
+                function goToSlide(index) {
+                    if (index >= 0 && index < totalSlides) {
+                        currentSlide = index;
+                        updateUI();
+                    }
+                }
+
+                prevBtn.addEventListener('click', function() { changeSlide(-1); });
+                nextBtn.addEventListener('click', function() { changeSlide(1); });
+                if (restartSlideBtn) {
+                    restartSlideBtn.addEventListener('click', function() { goToSlide(0); });
+                }
+
+                function toggleFullScreen() {
+                    if (!document.fullscreenElement) {
+                        document.documentElement.requestFullscreen().catch(function(err) {
+                            alert("Gagal masuk mode layar penuh: " + err.message);
+                        });
+                    } else if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    }
+                }
+
+                fullscreenBtn.addEventListener('click', toggleFullScreen);
+
+                document.addEventListener('fullscreenchange', function() {
+                    if (document.fullscreenElement) {
+                        document.body.classList.add('is-fullscreen');
+                        fullscreenIcon.className = 'fa-solid fa-compress';
+                    } else {
+                        document.body.classList.remove('is-fullscreen');
+                        fullscreenIcon.className = 'fa-solid fa-expand';
+                    }
+                });
+
+                document.addEventListener('keydown', function(e) {
+                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+                        e.preventDefault();
+                        changeSlide(1);
+                    }
+                    if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                        e.preventDefault();
+                        changeSlide(-1);
+                    }
+                    if (e.key.toLowerCase() === 'f') {
+                        e.preventDefault();
+                        toggleFullScreen();
+                    }
+                });
+
+                updateUI();
+
+                let lastDataCount = -1;
+                const stickyColors = [
+                    'bg-amber-100 border-amber-500 text-slate-900',
+                    'bg-blue-100 border-blue-600 text-slate-900',
+                    'bg-emerald-100 border-emerald-600 text-slate-900',
+                    'bg-rose-100 border-rose-500 text-slate-900',
+                    'bg-purple-100 border-purple-500 text-slate-900',
+                    'bg-cyan-100 border-cyan-600 text-slate-900'
+                ];
+
+                async function fetchResponses(force = false) {
+                    const statusEl = document.getElementById('syncStatus');
+                    try {
+                        const response = await fetch(`${SCRIPT_URL}?t=${new Date().getTime()}`);
+                        const data = await response.json();
+
+                        if (statusEl) {
+                            statusEl.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> Terhubung ke Google Sheets`;
+                        }
+
+                        if (force || data.length !== lastDataCount) {
+                            lastDataCount = data.length;
+                            renderCards(data);
+                        }
+                    } catch (error) {
+                        if (statusEl) {
+                            statusEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-600 mr-1"></i> Menunggu koneksi internet / izin akses...`;
+                        }
+                    }
+                }
+
+                function renderCards(data) {
+                    const container = document.getElementById('liveBoardContainer');
+                    const countBadge = document.getElementById('responseCount');
+                    countBadge.textContent = `${data.length} Jawaban`;
+
+                    if (data.length === 0) return;
+
+                    container.innerHTML = '';
+                    const reversedData = [...data].reverse();
+
+                    reversedData.forEach((item, index) => {
+                        const colorClass = stickyColors[index % stickyColors.length];
+                        const card = document.createElement('div');
+                        card.className = `${colorClass} border-2 border-b-4 rounded-2xl p-4 shadow-sm pop-in flex flex-col justify-between`;
+                        card.innerHTML = `
+                            <div class="space-y-2">
+                                <div>
+                                    <span class="text-xs font-black uppercase tracking-wider text-[#0B2447] block">Media Sering Dipakai:</span>
+                                    <p class="text-sm md:text-base font-extrabold text-slate-950">${escapeHTML(item.jawaban1)}</p>
+                                </div>
+                                <div class="border-t border-black/15 pt-1.5">
+                                    <span class="text-xs font-black uppercase tracking-wider text-rose-800 block">Kendala:</span>
+                                    <p class="text-sm font-semibold text-slate-900">${escapeHTML(item.jawaban2)}</p>
+                                </div>
+                            </div>
+                            <div class="mt-3 pt-2 border-t border-black/15 flex items-center justify-between text-xs md:text-sm font-extrabold text-[#0B2447]">
+                                <span><i class="fa-solid fa-thumbtack mr-1 text-rose-700"></i> ${escapeHTML(item.nama)}</span>
+                            </div>
+                        `;
+                        container.appendChild(card);
+                    });
+                }
+
+                if (manualRefreshBtn) {
+                    manualRefreshBtn.addEventListener('click', function() { fetchResponses(true); });
+                }
+
+                fetchResponses();
+                setInterval(fetchResponses, 3000);
+            }
+
+            function initParticipantMode() {
+                const opinionForm = document.getElementById('opinionForm');
+                const successMessage = document.getElementById('successMessage');
+                const resetFormBtn = document.getElementById('resetFormBtn');
+
+                opinionForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    const btn = document.getElementById('submitBtn');
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
+
+                    const payload = {
+                        nama: document.getElementById('inputNama').value.trim() || "Peserta Workshop",
+                        jawaban1: document.getElementById('inputJawab1').value.trim(),
+                        jawaban2: document.getElementById('inputJawab2').value.trim()
+                    };
+
+                    try {
+                        await fetch(SCRIPT_URL, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                            body: JSON.stringify(payload)
+                        });
+                        
+                        opinionForm.style.display = 'none';
+                        successMessage.style.display = 'block';
+                    } catch (error) {
+                        alert("Gagal mengirim jawaban. Pastikan koneksi internet stabil dan coba lagi.");
+                    } finally {
+                        btn.disabled = false;
+                        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim ke Layar Utama';
+                    }
+                });
+
+                resetFormBtn.addEventListener('click', function() {
+                    opinionForm.reset();
+                    opinionForm.style.display = 'block';
+                    successMessage.style.display = 'none';
+                });
+            }
+
+            function escapeHTML(str) {
+                return String(str || '').replace(/[&<>'"]/g, tag => ({
+                    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+                }[tag]));
+            }
+        })();
+    </script>
+</body>
+</html>
